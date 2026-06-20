@@ -58,21 +58,25 @@ export const clearSession = () => {
 export const logout = async (): Promise<void> => {
   const token = getToken();
 
-  // Best-effort: tell backend to invalidate the session
+  // Best-effort: tell backend to invalidate session.
+  // AbortController with 3s timeout ensures this NEVER hangs.
   if (token) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
     try {
       await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
+        signal: controller.signal,
       });
     } catch {
-      // Ignore network errors — we still clear local state
+      // Ignore — network errors, 401s, timeouts: we always clear local state
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
-  // Always clear all local session data
+  // Always clear all local session data — even if the API call failed
   clearSession();
 };
 

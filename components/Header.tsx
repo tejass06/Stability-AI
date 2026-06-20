@@ -33,15 +33,13 @@ export default function Header({ title, subtitle }: HeaderProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setIsLoggingOut(true);
     setDropdownOpen(false);
-    try {
-      await logout();
-    } finally {
-      // Always redirect to intake regardless of API response
-      router.push('/intake');
-    }
+    // Fire API call in background — do not await it
+    logout().catch(() => {});
+    // Redirect immediately — don't wait for network
+    router.push('/intake');
   };
 
   // Shorten sessionId for display: show first 8 chars

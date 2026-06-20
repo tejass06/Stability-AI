@@ -66,14 +66,13 @@ export default function Sidebar() {
     setMobileOpen(false);
   }, [pathname]);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setIsLoggingOut(true);
     setMobileOpen(false);
-    try {
-      await logout();
-    } finally {
-      router.push('/intake');
-    }
+    // Fire API call in background — do not await it
+    logout().catch(() => {});
+    // Redirect immediately — don't wait for network
+    router.push('/intake');
   };
 
   return (
