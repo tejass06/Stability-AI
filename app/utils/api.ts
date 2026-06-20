@@ -51,8 +51,31 @@ export const clearSession = () => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('token');
     localStorage.removeItem('sessionId');
+    localStorage.removeItem('activeSessionId');
   }
 };
+
+export const logout = async (): Promise<void> => {
+  const token = getToken();
+
+  // Best-effort: tell backend to invalidate the session
+  if (token) {
+    try {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+    } catch {
+      // Ignore network errors — we still clear local state
+    }
+  }
+
+  // Always clear all local session data
+  clearSession();
+};
+
 
 // Check for X-New-Token header to update local token if middleware auto-refreshed it
 const handleNewTokenHeader = (headers: Headers) => {

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   ClipboardSignature,
@@ -16,6 +16,7 @@ import {
   X
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { logout } from '../app/utils/api';
 
 const navItems = [
   {
@@ -57,11 +58,23 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    setMobileOpen(false);
+    try {
+      await logout();
+    } finally {
+      router.push('/intake');
+    }
+  };
 
   return (
     <>
@@ -246,23 +259,30 @@ export default function Sidebar() {
           </button>
 
           <button
+            id="sidebar-logout-button"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
             style={{
               width: '100%',
               height: 44,
               borderRadius: 8,
               border: 'none',
-              background: 'transparent',
+              background: isLoggingOut ? '#FEF2F2' : 'transparent',
               display: 'flex',
               alignItems: 'center',
               padding: '0 14px',
-              color: '#DC2626',
+              color: isLoggingOut ? '#9CA3AF' : '#DC2626',
+              cursor: isLoggingOut ? 'not-allowed' : 'pointer',
+              fontWeight: 600,
+              transition: 'background 0.15s',
+              opacity: isLoggingOut ? 0.7 : 1,
             }}
           >
             <LogOut
               size={18}
-              style={{ marginRight: 12 }}
+              style={{ marginRight: 12, flexShrink: 0 }}
             />
-            Logout
+            {isLoggingOut ? 'Signing out...' : 'Log Out'}
           </button>
         </div>
       </aside>
