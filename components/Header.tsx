@@ -38,8 +38,8 @@ export default function Header({ title, subtitle }: HeaderProps) {
     setDropdownOpen(false);
     // Fire API call in background — do not await it
     logout().catch(() => {});
-    // Redirect immediately — don't wait for network
-    router.push('/intake');
+    // Hard redirect — forces full page reload so user sees clear change
+    window.location.replace('/intake?loggedOut=1');
   };
 
   // Shorten sessionId for display: show first 8 chars

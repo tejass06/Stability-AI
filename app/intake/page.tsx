@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Building2,
   Home,
@@ -16,6 +16,7 @@ import {
   Info,
   Building,
   Loader2,
+  LogOut,
 } from 'lucide-react';
 
 import Header from '../../components/Header';
@@ -179,7 +180,19 @@ const steps = [
 
 export default function IntakeWizardPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
+  const [showLogoutToast, setShowLogoutToast] = useState(false);
+
+  // Show logout toast if redirected from logout
+  useEffect(() => {
+    if (searchParams.get('loggedOut') === '1') {
+      setShowLogoutToast(true);
+      // Auto-hide after 4 seconds
+      const t = setTimeout(() => setShowLogoutToast(false), 4000);
+      return () => clearTimeout(t);
+    }
+  }, [searchParams]);
 
   // Form Fields State
   const [state, setState] = useState('California');
@@ -251,6 +264,39 @@ export default function IntakeWizardPage() {
 
   return (
     <>
+      {/* Logout Toast */}
+      {showLogoutToast && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 9999,
+            background: '#10B981',
+            color: '#FFFFFF',
+            borderRadius: '10px',
+            padding: '14px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            fontSize: '14px',
+            fontWeight: 600,
+            boxShadow: '0 8px 32px rgba(16,185,129,0.35)',
+            animation: 'slideDown 0.3s ease',
+          }}
+        >
+          <LogOut size={18} />
+          You have been logged out successfully.
+          <button
+            onClick={() => setShowLogoutToast(false)}
+            style={{ marginLeft: '8px', background: 'none', border: 'none', color: '#FFFFFF', cursor: 'pointer', fontSize: '16px', lineHeight: 1 }}
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       <Header
         title="Intake Wizard"
         subtitle="Housing Stability Assessment"

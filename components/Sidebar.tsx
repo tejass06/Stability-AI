@@ -71,8 +71,8 @@ export default function Sidebar() {
     setMobileOpen(false);
     // Fire API call in background — do not await it
     logout().catch(() => {});
-    // Redirect immediately — don't wait for network
-    router.push('/intake');
+    // Hard redirect — forces full page reload so user sees clear change
+    window.location.replace('/intake?loggedOut=1');
   };
 
   return (

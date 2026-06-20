@@ -263,6 +263,11 @@ textarea {
   animation: pulse-ring 2s infinite;
 }
 
+@keyframes slideDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 /* ==========================================
    MOBILE
 ========================================== */
