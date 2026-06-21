@@ -4,11 +4,7 @@ Stability AI is a full-stack web application that empowers tenants facing housin
 
 ---
 
-## 📸 Pages Overview & Screenshots
-
-### 🎥 Live Demo Walkthrough
-Here is a complete walkthrough of the onboarding, intake assessment, and all platform sections:
-![Platform Walkthrough](screenshots/housing_stability_walkthrough.webp)
+## 📸 Pages Overview 
 
 ### 🖥️ Page Previews
 
