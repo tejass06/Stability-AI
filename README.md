@@ -4,17 +4,23 @@ Stability AI is a full-stack web application that empowers tenants facing housin
 
 ---
 
-## 📸 Pages Overview
+## 📸 Pages Overview & Screenshots
 
-| Page | Description |
-|------|-------------|
-| **Dashboard** | Overview stats, housing stability score, recent activity, quick action links |
-| **Intake Wizard** | Multi-step questionnaire collecting tenant state, situation, deadline, income, and household details |
-| **Action Plans** | AI-generated personalized action timeline, landlord letter generator, priority checklist |
-| **Risk Profiler** | Eviction risk score gauge, legal vulnerability vectors, urgent timeline |
-| **Court Prep** | Interactive chat simulator, evidence checklist, hearing readiness tracker |
-| **Tenant Rights** | Searchable state/local law database, habitability standards, eviction defense |
-| **Resource Finder** | Matches local legal aid, rental assistance, shelters, food programs |
+### 🎥 Live Demo Walkthrough
+Here is a complete walkthrough of the onboarding, intake assessment, and all platform sections:
+![Platform Walkthrough](screenshots/housing_stability_walkthrough.webp)
+
+### 🖥️ Page Previews
+
+| Page | Description | Screenshot |
+|------|-------------|------------|
+| **Dashboard** | Overview stats, housing stability score, recent activity, quick action links | ![Dashboard](screenshots/dashboard.png) |
+| **Intake Wizard** | Multi-step questionnaire collecting tenant state, situation, deadline, income, and household details | ![Intake Wizard](screenshots/intake.png) |
+| **Action Plans** | AI-generated personalized action timeline, landlord letter generator, priority checklist | ![Action Plans](screenshots/action-plans.png) |
+| **Risk Profiler** | Eviction risk score gauge, legal vulnerability vectors, urgent timeline | ![Risk Profiler](screenshots/risk.png) |
+| **Court Prep** | Interactive chat simulator, evidence checklist, hearing readiness tracker | ![Court Prep](screenshots/court.png) |
+| **Tenant Rights** | Searchable state/local law database, habitability standards, eviction defense | ![Tenant Rights](screenshots/rights.png) |
+| **Resource Finder** | Matches local legal aid, rental assistance, shelters, food programs | ![Resource Finder](screenshots/resources.png) |
 
 ---
 
